@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, My Cushion 🩵</title>
+  <!-- Google Font: Prompt -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Canvas สำหรับ Particle ลอยๆ และ Effect ตามเมาส์ -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- เพลงพื้นหลัง (ใส่ไฟล์ music.mp3 ไว้ในโฟลเดอร์เดียวกับไฟล์นี้) -->
+  <audio id="bgMusic" src="music.mp3" loop></audio>
+
+  <!-- ปุ่มเปิด/ปิดเพลง แบบลอยตัว -->
+  <button id="musicToggle" class="music-toggle hidden" aria-label="Toggle Music">
+    <span class="icon">🎵</span>
+  </button>
+
+  <!-- หน้าต่างขาวสำหรับ Transition ตอนเปลี่ยนหน้า -->
+  <div id="transitionOverlay" class="transition-overlay"></div>
+
+  <!-- Main Container -->
+  <main class="app-container">
+
+    <!-- ====================================================== -->
+    <!-- PAGE 1: คำถามตื๊อสุดน่ารัก                              -->
+    <!-- ====================================================== -->
+    <section id="page1" class="page active">
+      <div class="glass-card main-question-card">
+        <div class="emoji-header">🐶</div>
+        <h1 id="questionText" class="question-text">อยากได้ของขวัญวันเกิดจากเค้ามั้ยอ้วง 😻</h1>
+
+        <div class="button-group">
+          <button id="btnYes" class="btn btn-primary">อยาก!</button>
+          <button id="btnNo" class="btn btn-secondary">มั่ย!</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- PAGE 2 & LETTER: ซองจดหมายและจดหมายกางกลางจอ            -->
+    <!-- ====================================================== -->
+    <section id="page2" class="page hidden">
+
+      <!-- ซองจดหมายเริ่มต้น -->
+      <div id="envelopeWrapper" class="envelope-wrapper">
+        <div class="envelope">
+          <div class="flap top-flap"></div>
+          <div class="flap side-flap left-flap"></div>
+          <div class="flap side-flap right-flap"></div>
+          <div class="envelope-bottom"></div>
+
+          <!-- แผ่นกระดาษจดหมาย (ตอนแรกซ่อนอยู่ข้างใน) -->
+          <div id="letterSheet" class="letter-sheet">
+            <div class="letter-content">
+              <p id="typewriterText" class="typewriter-text"></p>
+
+              <!-- ปุ่มสุดท้ายสำหรับเปิดกล่องของขวัญ ซ่อนไว้ก่อนพิมพ์เสร็จ -->
+              <button id="btnShowGift" class="btn btn-gift hidden-element">รับของขวัญ 🎁</button>
+            </div>
+          </div>
+        </div>
+        <p id="envelopeHint" class="envelope-hint">แตะเพื่อเปิดจดหมาย</p>
+      </div>
+
+      <!-- แกลเลอรีรูปภาพสไตล์โพลารอยด์กระจายตัว -->
+      <div id="photoGallery" class="photo-gallery hidden-gallery">
+        <div class="polaroid photo-1">
+          <img src="images/photo1.jpg" alt="Memory 1">
+          <div class="caption">Rak</div>
+        </div>
+        <div class="polaroid photo-2">
+          <img src="images/photo2.jpg" alt="Memory 2">
+          <div class="caption">Na</div>
+        </div>
+        <div class="polaroid photo-3">
+          <img src="images/photo3.jpg" alt="Memory 3">
+          <div class="caption">Auan</div>
+        </div>
+        <div class="polaroid photo-4">
+          <img src="images/photo4.jpg" alt="Memory 4">
+          <div class="caption">🩵</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- GIFT INTERACTIVE MODAL BOX                             -->
+    <!-- ====================================================== -->
+    <div id="giftModal" class="gift-modal hidden-modal">
+      <div class="modal-overlay"></div>
+      <div class="gift-container">
+        <!-- กล่องของขวัญมีอนิเมชันเด้ง -->
+        <div id="giftBox" class="gift-box">
+          <div class="gift-lid"></div>
+          <div class="gift-body"></div>
+        </div>
+
+        <!-- ข้อความเซอไพรส์เรืองแสงด้านใน -->
+        <div id="giftReveal" class="gift-reveal hidden-element">
+          <h2 class="glowing-text">เจี๊ยบ🐥</h2>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Main JavaScript Logic -->
+  <script src="script.js"></script>
+</body>
+
+</html>

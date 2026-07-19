@@ -1,0 +1,568 @@
+/* ==========================================================================
+   Apple-Inspired Palette, Typography & Framework Definitions
+   ========================================================================== */
+:root {
+    --bg-gradient-start: #EAF8FF;
+    --bg-gradient-mid: #CDEFFF;
+    --bg-gradient-end: #A8DAFF;
+    --text-color: #1D1D1F; /* Apple Charcoal */
+    --text-secondary: #86868B;
+    --primary-blue: #0071E3;
+    --primary-blue-hover: #0077ED;
+    --glass-bg: rgba(255, 255, 255, 0.45);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --card-shadow: 0 8px 32px 0 rgba(0, 113, 227, 0.08);
+    --apple-easing: cubic-bezier(0.25, 1, 0.5, 1);
+    --font-stack: 'Prompt', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: var(--font-stack);
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end));
+    background-size: 400% 400%;
+    animation: gradientShift 20s ease infinite;
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Background Dynamic Easing Flow */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Canvas Particle Backdrop Layer */
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   Structural Layout Configurations
+   ========================================================================== */
+.app-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    z-index: 2;
+}
+
+.page {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s var(--apple-easing), transform 0.8s var(--apple-easing);
+}
+
+.page.hidden {
+    display: none;
+    opacity: 0;
+    transform: scale(0.96);
+}
+
+.page.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Glassmorphism Card System */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    padding: 40px 30px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+    transition: all 0.5s var(--apple-easing);
+}
+
+/* ==========================================================================
+   Page 1 Elements (Interaction Stage)
+   ========================================================================== */
+.emoji-header {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    display: inline-block;
+    animation: floatHeart 3s ease-in-out infinite;
+}
+
+@keyframes floatHeart {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.question-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 35px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+    min-height: 80px;
+}
+
+/* Buttons System Specifications */
+.btn {
+    font-family: var(--font-stack);
+    font-size: 1.05rem;
+    font-weight: 500;
+    padding: 14px 28px;
+    border-radius: 99px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s var(--apple-easing);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-blue-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 113, 227, 0.3);
+}
+
+.btn-secondary {
+    background-color: #FFFFFF;
+    color: var(--text-color);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary:hover {
+    background-color: #F5F5F7;
+}
+
+/* Shake Animation Matrix */
+.shake {
+    animation: buttonShake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes buttonShake {
+    10%, 90% { transform: translate3d(-2px, 0, 0); }
+    20%, 80% { transform: translate3d(4px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+    40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+/* ==========================================================================
+   Audio Floating Controller System
+   ========================================================================== */
+.music-toggle {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    z-index: 100;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s var(--apple-easing);
+}
+
+.music-toggle.hidden {
+    opacity: 0;
+    transform: scale(0.5);
+    pointer-events: none;
+}
+
+.music-toggle.playing {
+    animation: spinMusic 8s linear infinite;
+    background: #FFFFFF;
+}
+
+@keyframes spinMusic {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   Page Transitions Structure
+   ========================================================================== */
+.transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.transition-overlay.active {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   Envelope & Letter Transform Engine (แก้ไขใหม่)
+   ========================================================================== */
+.envelope-wrapper {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    margin: 40px auto;
+    cursor: pointer;
+    z-index: 5;
+    transition: transform 0.6s var(--apple-easing), opacity 0.6s var(--apple-easing);
+}
+
+/* เมื่อเปิดจดหมาย ให้ซองจดหมายค่อยๆ จางและยุบลงเพื่อส่งต่อให้กระดาษเด่นขึ้น */
+.envelope-wrapper.open {
+    transform: scale(0.8);
+    opacity: 0;
+    pointer-events: none; /* กดซ้ำไม่ได้ */
+}
+
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+/* กระดาษจดหมายตอนแรก (ซ่อนอยู่ในซอง) */
+.letter-sheet {
+    position: absolute;
+    bottom: 5px;
+    left: 15px;
+    width: 270px;
+    height: 180px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    z-index: 2;
+    overflow: hidden;
+    /* เตรียมพร้อมสำหรับการขยายร่างครอบทั้งหน้าจอ */
+    transition: all 0.8s var(--apple-easing); 
+}
+
+/* คลาสใหม่ที่จะถูกใส่โดย JavaScript เพื่อดึงกระดาษมาตรงกลางและขยายใหญ่ */
+.letter-sheet.center-active {
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 90%;
+    max-width: 420px;
+    height: auto;
+    max-height: 75vh; /* ป้องกันไม่ให้ทะลุหน้าจอแนวตั้ง */
+    z-index: 1000;
+    box-shadow: 0 30px 60px rgba(0, 113, 227, 0.15);
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.95); /* เพิ่มความนวลตา */
+    
+    /* ควบคุมการจัดวางภายเนื้อหาภายในไม่ให้หลุด */
+    display: flex;
+    flex-direction: column;
+}
+
+.letter-content {
+    color: var(--text-color);
+    line-height: 1.8;
+    font-size: 1.05rem;
+    font-weight: 400;
+    white-space: pre-line;
+    
+    /* บังคับเนื้อหาด้านในถ้าหากยาวเกินไปให้สกรอลล์ในแนวดิ่งอย่างนุ่มนวล */
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* ตกแต่ง scrollbar ของจดหมายให้ดู Minimal แบบ Apple */
+.letter-content::-webkit-scrollbar {
+    width: 4px;
+}
+.letter-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+
+/* ==========================================================================
+   Scattered Polaroid Photo Gallery System
+   ========================================================================== */
+.photo-gallery {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.hidden-gallery .polaroid {
+    opacity: 0 !important;
+    transform: translate(-50%, -50%) scale(0.5) !important;
+}
+
+.polaroid {
+    position: absolute;
+    background: #FFFFFF;
+    padding: 10px 10px 24px 10px;
+    border-radius: 4px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+    width: 140px;
+    transition: all 1s var(--apple-easing);
+    opacity: 0;
+}
+
+.polaroid img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.polaroid .caption {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* Responsive Positions for Gallery Nodes */
+.photo-1 { top: 18%; left: 15%; transform: rotate(-8deg); }
+.photo-2 { top: 22%; right: 15%; transform: scale(1) rotate(6deg); }
+.photo-3 { bottom: 20%; left: 12%; transform: rotate(12deg); }
+.photo-4 { bottom: 18%; right: 12%; transform: translateY(0) rotate(-6deg); }
+
+/* Animation triggers handled via individual classes */
+.photo-1.show { opacity: 1; transform: rotate(-8deg); }
+.photo-2.show { opacity: 1; transform: scale(1.05) rotate(6deg); }
+.photo-3.show { opacity: 1; transform: rotate(12deg); }
+.photo-4.show { opacity: 1; transform: translateY(-15px) rotate(-6deg); }
+
+/* Utility States */
+/* Utility States */
+.hidden-element {
+    display: none;
+    opacity: 0;
+}
+
+.btn-gift {
+    background: linear-gradient(135deg, #FF6B8B, #FF8E53);
+    color: white;
+    margin-top: 25px;
+    width: 100%;
+    box-shadow: 0 8px 20px rgba(255, 107, 139, 0.3);
+    animation: pulseGift 2s infinite;
+}
+
+@keyframes pulseGift {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}
+
+/* ==========================================================================
+   Gift Exploding Overlay Stage
+   ========================================================================== */
+.gift-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
+}
+
+.gift-modal.hidden-modal {
+    display: none;
+    opacity: 0;
+}
+
+.modal-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(234, 248, 255, 0.85);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+}
+
+.gift-container {
+    position: relative;
+    z-index: 2001;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Skeuomorphic Gift Geometry definitions */
+.gift-box {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    cursor: pointer;
+}
+
+.gift-box.bounce {
+    animation: boxBounce 0.6s infinite alternate ease-in-out;
+}
+
+@keyframes boxBounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-20px); }
+}
+
+.gift-lid {
+    position: absolute;
+    width: 150px;
+    height: 35px;
+    background: #FF5274;
+    left: -5px;
+    top: 0;
+    border-radius: 6px;
+    z-index: 2;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: transform 0.7s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+.gift-body {
+    position: absolute;
+    width: 140px;
+    height: 110px;
+    background: #FF6B8B;
+    bottom: 0;
+    border-radius: 0 0 12px 12px;
+    z-index: 1;
+}
+
+/* Cross ribbons decorations */
+.gift-body::after, .gift-lid::after {
+    content: '';
+    position: absolute;
+    background: #FFF066;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 100%;
+}
+
+/* Box Opened State Animation Map */
+.gift-box.opened .gift-lid {
+    transform: translate3d(80px, -120px, 0) rotate(45deg);
+    opacity: 0;
+}
+
+/* Rewarded Element Reveal Typography */
+.gift-reveal {
+    margin-top: 40px;
+    text-align: center;
+    transform: scale(0.7);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gift-reveal.reveal-active {
+    transform: scale(1);
+}
+
+.glowing-text {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1D1D1F;
+    text-shadow: 0 0 20px rgba(255,255,255,0.8);
+    background: linear-gradient(90deg, #0071E3, #FF5274, #0071E3);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 4s linear infinite;
+}
+
+@keyframes shine {
+    to { background-position: 200% center; }
+}
+
+/* ==========================================================================
+   Adaptive Media Breakpoint Injections
+   ========================================================================== */
+@media (max-width: 768px) {
+    .photo-gallery {
+        position: relative;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 250px;
+        padding-bottom: 50px;
+    }
+    
+    .envelope-wrapper.open ~ .photo-gallery {
+        margin-top: 320px;
+    }
+
+    .polaroid {
+        position: relative;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: none !important;
+        width: 135px;
+    }
+    
+    .polaroid.show {
+        transform: scale(1) !important;
+    }
+    
+    .envelope-wrapper.open .letter-sheet {
+        width: 290px;
+        left: 5px;
+    }
+}
